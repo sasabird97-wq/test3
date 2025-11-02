@@ -1,5 +1,4 @@
-// V16: Auto-playing space ambience (no controls), green galaxy, slow random fades
-// ---------- TIMER (green digital) ----------
+
 const ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 function randStr(len=2){
   let s=''; for(let i=0;i<len;i++) s += ALPHA[Math.floor(Math.random()*ALPHA.length)];
@@ -14,7 +13,7 @@ const seps = document.querySelectorAll('.sep.blink');
 // init
 [daysEl,hoursEl,minutesEl,secondsEl].forEach(el => el.textContent = randStr(2));
 
-// Slow random fade loop per-block
+
 const FADE_DURATION = 1200; // matches CSS transition (1.2s)
 function updateWithFade(el){
   el.classList.add('fade-out');
@@ -36,7 +35,7 @@ setInterval(()=>{
   seps.forEach(s => s.classList.toggle('off', !blinkOn));
 }, 1000);
 
-// ---------- SPACE BACKGROUND (canvas): stars + centered spiral galaxy ----------
+
 const canvas = document.getElementById('space');
 const ctx = canvas.getContext('2d');
 
@@ -135,7 +134,7 @@ function draw(){
 }
 draw();
 
-// ---------- WEBAUDIO: Always-on space ambience (auto-play + auto-resume) ----------
+
 let actx = null, masterGain, noiseSrc, noiseGain, lp, bp, lfo, lfoGain, rumbleOsc, rumbleGain, delayL, delayR, fbL, fbR, merger;
 
 function createNoiseBuffer(ctx, seconds=2){
@@ -219,11 +218,11 @@ function ensureAudio(){
   }
 }
 
-// Try autoplay on load
+
 document.addEventListener('DOMContentLoaded', ensureAudio);
 window.addEventListener('load', ensureAudio);
 
-// Auto-resume on any user interaction (most browsers allow this)
+
 ['pointerdown','click','keydown','touchstart'].forEach(evt => {
   window.addEventListener(evt, ensureAudio, {once:false, passive:true});
 });
